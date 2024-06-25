@@ -1,0 +1,260 @@
+{
+	"info": {
+		"_postman_id": "e45f6a79-03ad-4795-a485-e6a0213b08dd",
+		"name": "Spring Security Project Postman Collection",
+		"description": "This Postman collection includes various endpoints for interacting with the Spring Security project. Below is a guide to the available endpoints, along with instructions on how to use them.\n\n## Endpoints\n\n### 1\\. Get Welcome Message\n\n- **Endpoint:** `GET /get/welcome`\n    \n- **URL:** `http://localhost:8080/get/welcome`\n    \n- **Description:** Retrieves a welcome message.\n    \n- **Request Body:** None\n    \n- { \"message\": \"Welcome to our application!\"}\n    \n\n### 2\\. Register a New User\n\n- **Endpoint:** `POST /login/newUser`\n    \n- **URL:** `http://localhost:8080/login/newUser`\n    \n- **Description:** Registers a new user with the provided details.\n    \n- { \"username\": \"Manish\", \"password\": \"abc1\", \"email\": \"manish@gmail.com\", \"roles\": \"ROLE_USER\"}\n    \n- { \"message\": \"User registered successfully!\"}\n    \n\n### 3\\. Authenticate User\n\n- **Endpoint:** `POST /authenticate`\n    \n- **URL:** `http://localhost:8080/authenticate`\n    \n- **Description:** Authenticates a user and generates a JWT token.\n    \n- { \"username\": \"Subhojit\", \"password\": \"abc3\"}\n    \n- { \"token\": \"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\"}\n    \n\n### 4\\. Get Secured User Information\n\n- **Endpoint:** `GET /get/secured/user`\n    \n- **URL:** `http://localhost:8080/get/secured/user`\n    \n- **Description:** Retrieves secured information for a user.\n    \n- **Request Body:** None\n    \n- { \"username\": \"Manish\", \"roles\": \\[\"ROLE_USER\"\\]}\n    \n- **Authorization:** Bearer token required.\n    \n\n### 5\\. Get Secured Admin Information\n\n- **Endpoint:** `GET /get/secured/admin`\n    \n- **URL:** `http://localhost:8080/get/secured/admin`\n    \n- **Description:** Retrieves secured information for an admin.\n    \n- **Request Body:** None\n    \n- { \"username\": \"Admin\", \"roles\": \\[\"ROLE_ADMIN\"\\]}\n    \n- **Authorization:** Bearer token required.\n    \n\n## Usage Instructions\n\n1. **Import the Postman Collection:**\n    \n    - Open Postman.\n        \n    - Click on `Import` in the top-left corner.\n        \n    - Select `File` and choose the Postman collection file (`.json` format).\n        \n2. **Set Up Authentication:**\n    \n    - After registering a new user, authenticate the user using the `/authenticate` endpoint to obtain the Bearer token.\n        \n    - Use this token to access the secured endpoints `/get/secured/user` and `/get/secured/admin`.\n        \n3. **Making Requests:**\n    \n    - For unsecured endpoints (`/get/welcome`, `/login/newUser`, `/authenticate`), make requests directly.\n        \n    - Authorization: Bearer\n        \n4. **Example Postman Request for Secured Endpoints:**\n    \n    - Select `GET` method.\n        \n    - Enter the URL `http://localhost:8080/get/secured/user` or `http://localhost:8080/get/secured/admin`.\n        \n    - Go to the `Authorization` tab.\n        \n    - Select `Bearer Token` and paste your token in the `Token` field.\n        \n    - Click `Send`.\n        \n\n## Note\n\nEnsure your Spring Security project is running locally on port 8080 to use these endpoints.\n\nHappy Testing!\n\nEndFragment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23314880",
+		"_collection_link": "https://crimson-shuttle-319706.postman.co/workspace/marketing_api_testing~eacbe7c1-b0b5-410f-9f1c-74e268113bab/collection/23314880-e45f6a79-03ad-4795-a485-e6a0213b08dd?action=share&source=collection_link&creator=23314880"
+	},
+	"item": [
+		{
+			"name": "Welcome Page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/get/welcome",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"get",
+						"welcome"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "SignUp",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"Manish\",\n    \"password\":\"abc1\",\n    \"email\":\"manish@gmail.com\",\n    \"roles\":\"ROLE_USER\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/login/newUser",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login",
+						"newUser"
+					]
+				},
+				"description": "This is a POST request, submitting data to an API via the request body. This request submits JSON data, and the data is reflected in the response.\n\nA successful POST request typically returns a `200 OK` or `201 Created` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "Jwt_Generation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful PUT request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"Subhojit\",\n    \"password\":\"abc3\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/authenticate",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"authenticate"
+					]
+				},
+				"description": "This is a PUT request and it is used to overwrite an existing piece of data. For instance, after you create an entity with a POST request, you may want to modify that later. You can do that using a PUT request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful PUT request typically returns a `200 OK`, `201 Created`, or `204 No Content` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "Admin login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful DELETE request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 202, 204]);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNYW5pc2giLCJpYXQiOjE3MTkzMjI2NjksImV4cCI6MTcxOTMyNDQ2OX0.uD9BzD0MnYMXnlRWai9mCmwmjTVmyA6SyUXRnBUuPIA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\":\"Manish\",\r\n    \"password\":\"abc1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/get/secured/admin",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"get",
+						"secured",
+						"admin"
+					]
+				},
+				"description": "This is a DELETE request, and it is used to delete data that was previously created via a POST request. You typically identify the entity being updated by including an identifier in the URL (eg. `id=1`).\n\nA successful DELETE request typically returns a `200 OK`, `202 Accepted`, or `204 No Content` response code."
+			},
+			"response": []
+		},
+		{
+			"name": "User login",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJNYW5pc2giLCJpYXQiOjE3MTkzMjI2NjksImV4cCI6MTcxOTMyNDQ2OX0.uD9BzD0MnYMXnlRWai9mCmwmjTVmyA6SyUXRnBUuPIA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/get/secured/user",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"get",
+						"secured",
+						"user"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "https://postman-rest-api-learner.glitch.me/"
+		}
+	]
+}
