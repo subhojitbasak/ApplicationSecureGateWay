@@ -38,5 +38,7 @@ public class SecuredController {
         return "Hello User!!";
     }
 
+    //logout feature
+
 
 }

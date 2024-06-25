@@ -1,18 +1,22 @@
 package com.form.login.demo.Config;
 
+import com.form.login.demo.Filter.JwtAuthFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
-import static org.springframework.security.config.Customizer.withDefaults;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -34,6 +38,8 @@ public class SecurityConfig {
 //        return new InMemoryUserDetailsManager(admin, user);
 //
 //    }
+    @Autowired
+    private JwtAuthFilter jwtAuthFilter;
 
     //Authentication with DB
     @Bean
@@ -51,11 +57,16 @@ public class SecurityConfig {
        return http.csrf((csrf)-> csrf.disable())
                 .authorizeHttpRequests((authorizeHttpRequests)->
                         authorizeHttpRequests
-                                .requestMatchers("/swagger-ui.html","/get/welcome","/login/newUser")
+                                .requestMatchers("/authenticate","/get/welcome","/login/newUser")
                                 .permitAll()
                                 .requestMatchers("/get/secured/**")
                                 .authenticated()
-                        ).formLogin(withDefaults()).build();
+
+                ).sessionManagement((sessionManagement) ->
+                       sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+               .authenticationProvider(authenticationProvider())
+               .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
+               .build();
 
     }
 
@@ -65,6 +76,10 @@ public class SecurityConfig {
         daoAuthenticationProvider.setUserDetailsService(userDetailsService());
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         return daoAuthenticationProvider;
+    }
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
     }
 }
 
