@@ -2,7 +2,9 @@ package com.form.login.demo.Controller;
 
 import com.form.login.demo.Entiry.UserInfo;
 import com.form.login.demo.Service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +23,8 @@ public class SecuredController {
     }
     //No authentication for below endpoint , use this to register the user
     @PostMapping("/login/newUser")
-    public String newUserSignUp(@RequestBody UserInfo userInfo){
+    public ResponseEntity<String> newUserSignUp(@RequestBody @Valid UserInfo userInfo){
+
         return service.newUserSignUp(userInfo);
     }
 
