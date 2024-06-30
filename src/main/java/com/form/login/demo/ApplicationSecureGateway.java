@@ -6,13 +6,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @EnableEncryptableProperties
 @SpringBootApplication
-public class SpringSecurity {
+public class ApplicationSecureGateway {
 
 
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(SpringSecurity.class, args);
+		SpringApplication.run(ApplicationSecureGateway.class, args);
 	}
 
 }
