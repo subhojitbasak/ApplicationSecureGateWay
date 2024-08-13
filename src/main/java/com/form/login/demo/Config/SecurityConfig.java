@@ -57,7 +57,7 @@ public class SecurityConfig {
        return http.csrf((csrf)-> csrf.disable())
                 .authorizeHttpRequests((authorizeHttpRequests)->
                         authorizeHttpRequests
-                                .requestMatchers("/authenticate","/get/welcome","/login/newUser")
+                                .requestMatchers("/authenticate","/get/welcome","/login/newUser","/fromEDS")
                                 .permitAll()
                                 .requestMatchers("/get/secured/**")
                                 .authenticated()
