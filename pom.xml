@@ -24,7 +24,7 @@
 		<connection>scm:git:https://github.com/subhojitbasak/ApplicationSecureGateWay.git</connection>
 		<developerConnection>scm:git:https://github.com/subhojitbasak/ApplicationSecureGateWay.git</developerConnection>
 		<url>https://github.com/subhojitbasak/ApplicationSecureGateWay</url>
-		<tag>HEAD</tag> <!-- HEAD ensures the latest commit is tagged -->
+		<tag>v1.0.0</tag> <!-- HEAD ensures the latest commit is tagged -->
 	</scm>
 
 	<properties>
