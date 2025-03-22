@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>com.form.login</groupId>
 	<artifactId>ApplicationSecureGateWay</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<name>ApplicationSecureGateWay</name>
 	<description>Demo project for Spring Boot log in </description>
 	<url />
