@@ -29,11 +29,10 @@ public class SecuredController {
     private RestTemplate restTemplate;
 
     //No authentication for below endpoint
-//    @GetMapping("/get/welcome")
-//    public String welcomeGet(){
-//
-//        return "Hello world GET!!";
-//    }
+@GetMapping("/get/welcome")
+    public String welcomeGet(){
+     return "welcome user!!";
+    }
 
 
     @Autowired
